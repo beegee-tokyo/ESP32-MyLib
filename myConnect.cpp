@@ -1,4 +1,4 @@
-#include "bgConnect.h"
+#include "myConnect.h"
 
 /**
  * Create Access Point name & mDNS name

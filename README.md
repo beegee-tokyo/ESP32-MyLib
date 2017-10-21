@@ -3,7 +3,7 @@ Here I collect functions that I am using in all my ESP32 projects.
 It is work in progress and will be updated over time.
 
 # Available libraries    
-## bgConnect    
+## myConnect    
 WiFi connection functionalities    
 
 ### Create Access Point name & mDNS name from MAC address
@@ -18,6 +18,7 @@ Tries to connect to a known AP within a given timeout.
 * **`ssid`** is the SSID to connect to    
 * **`password`** is the password for the AP    
 * **`timeout`** is the time in milli seconds to wait for the connection    
+* **`return`** flag if connection was successfull    
 
 **`bool connWiFiManager(const char *ssid, uint32_t connTimeout, uint32_t portalTimeout, bool connAuto)`**
 Tries to connect to the last known AP. If this fails or if there is no AP credentials stored the module switches into AP mode and a configuration portal is created to setup the network credentials    
@@ -26,8 +27,36 @@ Tries to connect to the last known AP. If this fails or if there is no AP creden
 * **`portalTimeout`**　Time to wait for input on configuration portal    
 * **`connAuto`**　If true, the functions tries first to connect to an known AP    
             If false, the configuration portal is immediately opened    
+* **`return`** flag if connection was successfull    
 
 **`bool connSmartConfig(uint32_t confTimeout, uint32_t connTimeout)`**    
 Connect with SmartConfig. First try auto connect, if it fails wait for SmartConfig to get WiFI credentials from an Android or IPhone app.        
 * **`confTimeout`** Time to wait to receive smart configuration    
 * **`connTimeout`** Time to wait for connection to WiFi after configuration was received    
+* **`return`** flag if connection was successfull    
+
+## myTimer    
+ESP32 HW timer functionalities    
+4 HW timers are available and can be used with this library
+
+### Start timer 
+**`hw_timer_t *startTimerMsec (uint64_t repeatTime, callback_t callback, bool repeat)`**    
+**`hw_timer_t *startTimerSec (uint64_t repeatTime, callback_t callback, bool repeat)`**    
+**`hw_timer_t *startTimer (uint64_t repeatTime, callback_t callback, bool repeat)`**    
+Start a timer for a single (repeat = false) or repeating (repeat = true) trigger.    
+startTimerSec for use with seconds,
+startTimerMSec for use with milli seconds,
+startTimer for use with micro seconds    
+* **`repeatTime`** time to trigger in seconds, milli seconds or micro seconds    
+* **`callback`** the function to be called when the timer is triggered    
+* **`repeat`** flag if the timer will be triggered repeatedly or only one time
+* **`return`** pointer to timer structure, needed to stop the timer    
+
+### Stop a specific timer 
+**`void stopTimer(hw_timer_t *timerToStop)`**    
+Stop the timer associated with timerToStop timer structure    
+* **`timerToStop`** timer to be stopped    
+
+### Stop all timers 
+**`void stopTimer(hw_timer_t *timerToStop)`**    
+Stop all used timers, usefull to stop timer triggered repeating events when an OTA starts    
