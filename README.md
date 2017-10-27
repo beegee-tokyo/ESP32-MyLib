@@ -39,24 +39,61 @@ Connect with SmartConfig. First try auto connect, if it fails wait for SmartConf
 ESP32 HW timer functionalities    
 4 HW timers are available and can be used with this library
 
-### Start timer 
-**`hw_timer_t *startTimerMsec (uint64_t repeatTime, callback_t callback, bool repeat)`**    
-**`hw_timer_t *startTimerSec (uint64_t repeatTime, callback_t callback, bool repeat)`**    
-**`hw_timer_t *startTimer (uint64_t repeatTime, callback_t callback, bool repeat)`**    
+### Start timer
+**`hw_timer_t *startTimerMsec (uint64_t triggerTime, callback_t callback, bool repeat)`**    
+**`hw_timer_t *startTimerSec (uint64_t triggerTime, callback_t callback, bool repeat)`**    
+**`hw_timer_t *startTimer (uint64_t triggerTime, callback_t callback, bool repeat)`**    
 Start a timer for a single (repeat = false) or repeating (repeat = true) trigger.    
 startTimerSec for use with seconds,
 startTimerMSec for use with milli seconds,
 startTimer for use with micro seconds    
-* **`repeatTime`** time to trigger in seconds, milli seconds or micro seconds    
+* **`triggerTime`** time to trigger in seconds, milli seconds or micro seconds    
 * **`callback`** the function to be called when the timer is triggered    
 * **`repeat`** flag if the timer will be triggered repeatedly or only one time
 * **`return`** pointer to timer structure, needed to stop the timer    
 
-### Stop a specific timer 
+### Restart a specific timer    
+**`void restartTimer(hw_timer_t *timerToRestart)`**    
+Restarts a timer with the same repeat/alarm time as it was created   
+* **`timerToRestart`** timer to be restarted    
+
+### Stop a specific timer
 **`void stopTimer(hw_timer_t *timerToStop)`**    
 Stop the timer associated with timerToStop timer structure    
 * **`timerToStop`** timer to be stopped    
 
-### Stop all timers 
-**`void stopTimer(hw_timer_t *timerToStop)`**    
+### Stop all timers
+**`void stopAllTimers()`**    
 Stop all used timers, usefull to stop timer triggered repeating events when an OTA starts    
+
+## myNTP    
+NTP client wrapper for NTPClient by Fabrice Weinberg ==> [NTPClient](https://github.com/arduino-libraries/NTPClient)    
+
+### Init NTP client
+**`void initNTP()`**    
+Starts NTP client, sets timezone to Philippines (fix at the moment) and requests a first time update from the NTP server.    
+
+### Get time from NTP server    
+**`bool tryGetTime()`**    
+calls NTP client update() to check if an updated time stamp is available   
+* **`return`** true if update was available, false if error occured    
+
+### Get time and date as String
+**`String digitalClockDisplay()`**    
+Returns time and date as string in the format hh:mm dd.mm.yy    
+* **`return`** String with time and date readable     
+
+### Get time as String
+**`String digitalTimeDisplay()`**    
+Returns time as string in the format hh:mm    
+* **`return`** String with time readable     
+
+### Get time as String with seconds
+**`String digitalTimeDisplaySec()`**    
+Returns time as string in the format hh:mm:ss    
+* **`return`** String with time readable     
+
+### Get time as String with seconds
+**`String digitalTimeDisplaySec()`**    
+Returns time as string in the format hh:mm:ss    
+* **`return`** String with time readable     

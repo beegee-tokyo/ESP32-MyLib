@@ -1,3 +1,6 @@
+#ifndef myconnect_h
+#define myconnect_h
+
 #include "WiFi.h"
 #include <ESPmDNS.h>
 #include <WiFiUdp.h>
@@ -16,3 +19,5 @@ bool connDirect(const char *ssid, const char *password, uint32_t timeout);
 bool connWiFiManager(const char *ssid, uint32_t connTimeout, uint32_t portalTimeout, bool connAuto);
 /** Connect with SmartConfig */
 bool connSmartConfig(uint32_t confTimeout, uint32_t connTimeout);
+
+#endif
