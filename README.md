@@ -93,7 +93,7 @@ Returns time as string in the format hh:mm
 Returns time as string in the format hh:mm:ss    
 * **`return`** String with time readable     
 
-### Get time as String with seconds
-**`String digitalTimeDisplaySec()`**    
-Returns time as string in the format hh:mm:ss    
+### Get date as String    
+**`String digitalDateDisplay()`**    
+Returns date as string in the format dd.mm.yy    
 * **`return`** String with time readable     

@@ -88,7 +88,7 @@ String digitalTimeDisplaySec() {
 /**
  * Generate a string with formatted date
  * @return <code>String</code>
- *			String with current time as dd.mm.yy
+ *			String with current date as dd.mm.yy
  */
 String digitalDateDisplay() {
 	// digital clock display of the time as string
