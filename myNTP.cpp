@@ -1,4 +1,4 @@
-#include "myNTP.h"
+#include "myLib.h"
 
 /** WiFiUDP class for NTP server */
 WiFiUDP ntpUDP;

@@ -1,4 +1,4 @@
-#include "myTimer.h"
+#include "myLib.h"
 
 /** Number of available timers */
 int availTimers = 4;

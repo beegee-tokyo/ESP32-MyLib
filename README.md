@@ -2,6 +2,9 @@
 Here I collect functions that I am using in all my ESP32 projects.
 It is work in progress and will be updated over time.
 
+# Usage
+Include **`myLib.h`** to get access to the functions of the library    
+
 # Available libraries    
 ## myConnect    
 WiFi connection functionalities    
