@@ -64,7 +64,7 @@ hw_timer_t *startTimer (uint64_t usTriggerTime, callback_t callback, bool repeat
   // Attach onTimer function to our timer.
 	timerAttachInterrupt(attachedTimer[timerToUse], (callback_t) isrPtr[timerToUse], true);
 
-  // Set alarm to call onTimer function every second (value in microseconds).
+  // Set alarm to call onTimer function every usTriggerTime  microseconds.
   // Repeat the alarm (third parameter)
   timerAlarmWrite(attachedTimer[timerToUse], usTriggerTime, repeat);
 
