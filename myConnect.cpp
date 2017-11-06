@@ -105,7 +105,7 @@ bool connWiFiManager(const char *ssid, uint32_t connTimeout, uint32_t portalTime
 /**
  * Connect with SmartConfig
  * First try auto connect, if it fails
- * open configuration portal
+ * start SmartConfig
  *
  * @param confTimeout
  *				Time to wait to receive smart configuration
@@ -118,24 +118,33 @@ bool connWiFiManager(const char *ssid, uint32_t connTimeout, uint32_t portalTime
  *				False if timeout
  */
 bool connSmartConfig(uint32_t confTimeout, uint32_t connTimeout) {
+	WiFi.mode(WIFI_STA);
+	WiFi.begin();
 	uint32_t startTime = millis();
-	//Init WiFi as Station, start SmartConfig
-	WiFi.mode(WIFI_AP_STA);
-	WiFi.beginSmartConfig();
-	//Wait for SmartConfig packet from mobile
-	while (!WiFi.smartConfigDone()) {
-		if (confTimeout != 0) {
-			if (millis()-startTime > confTimeout) { // check if waiting time exceeded
-				return false;
+	while (WiFi.waitForConnectResult() != WL_CONNECTED) {
+		if (millis()-startTime > connTimeout) { // check if waiting time exceeded
+			// Timeout, start SmartConfig now
+			startTime = millis();
+			//Init WiFi as Station, start SmartConfig
+			WiFi.disconnect();
+			WiFi.mode(WIFI_AP_STA);
+			WiFi.beginSmartConfig();
+			//Wait for SmartConfig packet from mobile
+			while (!WiFi.smartConfigDone()) {
+				if (confTimeout != 0) {
+					if (millis()-startTime > confTimeout) { // check if waiting time exceeded
+						return false;
+					}
+				}
 			}
-		}
-	}
-	//Wait for WiFi to connect to AP
-	startTime = millis();
-	while (WiFi.status() != WL_CONNECTED) {
-		if (connTimeout != 0) {
-			if (millis()-startTime > connTimeout) { // check if waiting time exceeded
-				return false;
+			//Wait for WiFi to connect to AP
+			startTime = millis();
+			while (WiFi.status() != WL_CONNECTED) {
+				if (connTimeout != 0) {
+					if (millis()-startTime > connTimeout) { // check if waiting time exceeded
+						return false;
+					}
+				}
 			}
 		}
 	}
