@@ -1,20 +1,19 @@
 #include "myLib.h"
 
-/** WiFiUDP class for NTP server */
-WiFiUDP ntpUDP;
-/** NTP client class */
-NTPClient timeClient(ntpUDP);
+/** Structure to keep the local time */
+struct tm timeinfo;
 
 /**
  * Initialize NTP client
+ * @return <code>bool</code>
+ *		true if time was updated within 10 seconds
  */
-void initNTP() {
-	// Start NTP listener
-	timeClient.begin();
-	// Set timezone (PH +8h)
-	timeClient.setTimeOffset(28800);
-	// Force update of time from NTP server
-	timeClient.forceUpdate();
+bool initNTP() {
+	configTzTime("UTC-8:00","0.asia.pool.ntp.org", "1.asia.pool.ntp.org", "2.asia.pool.ntp.org");
+	if (getLocalTime(&timeinfo, 10000)) {  // wait up to 10sec to sync
+		return true;
+	}
+	return false;
 }
 
 /**
@@ -23,8 +22,7 @@ void initNTP() {
  *		true if time was updated
  */
 bool tryGetTime() {
-	if (timeClient.update()) {
-		setTime(timeClient.getEpochTime());
+	if (getLocalTime(&timeinfo, 0)) {  // don't wait for  sync
 		return true;
 	}
 	return false;
@@ -51,12 +49,16 @@ String getDigits(int digits) {
  *			String with current time as hh:mm dd.mm.yy
  */
 String digitalClockDisplay() {
+	time_t now;
+	time(&now); // get time (as epoch)
+	localtime_r(&now, &timeinfo); // update tm struct with current time
+
 	// digital clock display of the time as string
-	String dateTime = String(hour()) + ":";
-	dateTime += getDigits(minute()) + " ";
-	dateTime += String(day()) + ".";
-	dateTime += String(month()) + ".";
-	dateTime += String(year());
+	String dateTime = String(timeinfo.tm_hour) + ":";
+	dateTime += getDigits(timeinfo.tm_min) + " ";
+	dateTime += String(timeinfo.tm_mday) + ".";
+	dateTime += String(timeinfo.tm_mon+1) + ".";
+	dateTime += String(timeinfo.tm_year+1900);
 	return dateTime;
 }
 
@@ -66,9 +68,13 @@ String digitalClockDisplay() {
  *			String with current time as hh:mm
  */
 String digitalTimeDisplay() {
+	time_t now;
+	time(&now); // get time (as epoch)
+	localtime_r(&now, &timeinfo); // update tm struct with current time
+
 	// digital clock display of the time as string
-	String dateTime = String(hour()) + ":";
-	dateTime += getDigits(minute());
+	String dateTime = String(timeinfo.tm_hour) + ":";
+	dateTime += getDigits(timeinfo.tm_min);
 	return dateTime;
 }
 
@@ -78,10 +84,14 @@ String digitalTimeDisplay() {
  *			String with current time as hh:mm:ss
  */
 String digitalTimeDisplaySec() {
+	time_t now;
+	time(&now); // get time (as epoch)
+	localtime_r(&now, &timeinfo); // update tm struct with current time
+
 	// digital clock display of the time as string
-	String dateTime = String(hour()) + ":";
-	dateTime += getDigits(minute()) + ":";
-	dateTime += getDigits(second());
+	String dateTime = String(timeinfo.tm_hour) + ":";
+	dateTime += getDigits(timeinfo.tm_min) + " ";
+	dateTime += String(timeinfo.tm_sec);
 	return dateTime;
 }
 
@@ -91,9 +101,13 @@ String digitalTimeDisplaySec() {
  *			String with current date as dd.mm.yy
  */
 String digitalDateDisplay() {
+	time_t now;
+	time(&now); // get time (as epoch)
+	localtime_r(&now, &timeinfo); // update tm struct with current time
+
 	// digital clock display of the time as string
-	String dateTime = String(day()) + ".";
-	dateTime += String(month()) + ".";
-	dateTime += String(year());
+	String dateTime = String(timeinfo.tm_mday) + ".";
+	dateTime += getDigits(timeinfo.tm_mon+1) + ".";
+	dateTime += String(timeinfo.tm_year+1900);
 	return dateTime;
 }

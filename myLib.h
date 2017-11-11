@@ -35,7 +35,7 @@ extern WiFiUDP ntpUDP;
 /** NTP client class */
 extern NTPClient timeClient;
 
-void initNTP();
+bool initNTP();
 bool tryGetTime();
 String digitalClockDisplay();
 String digitalTimeDisplay();

@@ -70,11 +70,12 @@ Stop the timer associated with timerToStop timer structure
 Stop all used timers, usefull to stop timer triggered repeating events when an OTA starts    
 
 ## myNTP    
-NTP client wrapper for NTPClient by Fabrice Weinberg ==> [NTPClient](https://github.com/arduino-libraries/NTPClient)    
+NTP client wrapper for FreeRTOS SNTP functionality    
 
 ### Init NTP client
-**`void initNTP()`**    
+**`bool initNTP()`**    
 Starts NTP client, sets timezone to Philippines (fix at the moment) and requests a first time update from the NTP server.    
+* **`return`** true if NTP update fails within 10 seconds    
 
 ### Get time from NTP server    
 **`bool tryGetTime()`**    
