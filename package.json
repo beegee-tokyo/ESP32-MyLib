@@ -1,0 +1,21 @@
+{
+    "name": "ESP32-MyLib",
+    "description": "Functions I use in all my ESP32 projects",
+    "author": "Bernd Giesecke",
+    "homepage": "https://github.com/beegee-tokyo/ESP32-MyLib",
+    "contributors": "Bernd Giesecke",
+    "version": "0.0.0",
+    "url": "https://github.com/beegee-tokyo/ESP32-MyLib",
+    "keywords": [ "ESP32" ],
+    "bugs": "beegee@giesecke.tk",
+    "license": "GNU General Public License v2.0",
+    "repository":
+      { "type" : "git"
+        , "url" : "https://github.com/beegee-tokyo/ESP32-MyLib.git"
+      },
+    "devDependencies":
+      { "arduino-esp32": "https://github.com/espressif/arduino-esp32.git"
+        , "PlatformIO_Atom_IDE": "https://github.com/platformio/platformio-atom-ide.git"
+      },
+    "cpu" : [ "ESP32" ]
+}
