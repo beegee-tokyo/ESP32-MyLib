@@ -1,0 +1,28 @@
+#######################################
+# Connect Methods (KEYWORD1)
+#######################################
+/** Connect to WiFi with defined method */
+createName KEYWORD1
+connDirect KEYWORD1
+connWiFiManager KEYWORD1
+connSmartConfig KEYWORD1
+
+#######################################
+# NTP Methods (KEYWORD1)
+#######################################
+initNTP KEYWORD1
+tryGetTime KEYWORD1
+digitalClockDisplay KEYWORD1
+digitalTimeDisplay KEYWORD1
+digitalTimeDisplaySec KEYWORD1
+digitalDateDisplay KEYWORD1
+
+#######################################
+# HW Timer Methods (KEYWORD1)
+#######################################
+startTimer KEYWORD1
+startTimerMsec KEYWORD1
+startTimerSec KEYWORD1
+restartTimer KEYWORD1
+stopTimer KEYWORD1
+stopAllTimers KEYWORD1

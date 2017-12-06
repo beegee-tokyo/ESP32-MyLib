@@ -26,6 +26,7 @@ void createName(char *apName, int apIndex) {
 /**
  * Connect to WiFi with defined method
  *
+ */
 /**
  * Connect with predefined SSID and password
  *
@@ -74,7 +75,7 @@ bool connDirect(const char *ssid, const char *password, uint32_t timeout) {
  *				or config portal timeout occured
  */
 bool connWiFiManager(const char *ssid, uint32_t connTimeout, uint32_t portalTimeout, bool connAuto) {
-	//Local intialization. Once its business is done, there is no need to keep it around
+	// Local intialization. Once its business is done, there is no need to keep it around
 	WiFiManager wifiManager;
 	uint32_t startTime = millis();
 	if (connAuto) {

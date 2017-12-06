@@ -91,7 +91,7 @@ String digitalTimeDisplaySec() {
 	// digital clock display of the time as string
 	String dateTime = String(timeinfo.tm_hour) + ":";
 	dateTime += getDigits(timeinfo.tm_min) + ":";
-	dateTime += String(timeinfo.tm_sec);
+	dateTime += getDigits(timeinfo.tm_sec);
 	return dateTime;
 }
 

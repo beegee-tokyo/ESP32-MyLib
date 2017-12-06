@@ -6,9 +6,9 @@
 /**********************************************************/
 #include "WiFi.h"
 #include <ESPmDNS.h>
-#include <WiFiUdp.h>
-#include <ArduinoOTA.h>
-#include <FS.h>
+#include "WiFiUdp.h"
+#include "ArduinoOTA.h"
+#include "FS.h"
 #include <DNSServer.h>
 #include <WebServer.h>
 #include <WiFiManager.h>
@@ -26,14 +26,12 @@ bool connSmartConfig(uint32_t confTimeout, uint32_t connTimeout);
 /**********************************************************/
 // For myNTP
 /**********************************************************/
-#include <NTPClient.h>
-#include <TimeLib.h>
-#include <WiFiUDP.h>
+// #include <NTPClient.h>
+// #include <TimeLib.h>
+// #include <WiFiUDP.h>
 
 /** WiFiUDP class for NTP server */
 extern WiFiUDP ntpUDP;
-/** NTP client class */
-extern NTPClient timeClient;
 
 bool initNTP();
 bool tryGetTime();
