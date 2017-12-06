@@ -5,6 +5,28 @@ It is work in progress and will be updated over time.
 # Usage
 Include **`myLib.h`** to get access to the functions of the library    
 
+# Dependencies
+Following are needed if WiFiManager is used to setup WiFi AP and credentials via portal    
+[WIFIMANAGER-ESP32](https://github.com/zhouhan0126/WIFIMANAGER-ESP32.git)    
+[WebServer-esp32](https://github.com/zhouhan0126/WebServer-esp32.git)    
+[DNSServer---esp32](https://github.com/zhouhan0126/DNSServer---esp32.git)    
+
+These libraries can be installed in two ways:    
+## Manually    
+Download the libraries and manually copy them to correct folders.    
+## Automatically
+In platformio.ini add or uncomment the following lines:
+```
+lib_deps =
+  https://github.com/beegee-tokyo/ESP32-MyLib.git
+  https://github.com/zhouhan0126/WIFIMANAGER-ESP32.git
+  https://github.com/zhouhan0126/WebServer-esp32.git
+  https://github.com/zhouhan0126/DNSServer---esp32.git
+```    
+# IMPORTANT
+On my ESP8266 I use [tzapu's WiFiManager](https://github.com/tzapu/WiFiManager) library. But right now this library is not working with ESP32 because of missing WebServer and DNSServer for ESP32.    
+For the time being I am using [zhouhan0126 WIFIMANAGER-ESP32](https://github.com/zhouhan0126/WIFIMANAGER-ESP32), 'https://github.com/zhouhan0126/WebServer-esp32' and 'https://github.com/zhouhan0126/DNSServer---esp32'.    
+
 # Available libraries    
 ## myConnect    
 WiFi connection functionalities    
